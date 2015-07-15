@@ -95,6 +95,19 @@ repeat {
 
 # reminder to fix the error when the last page is less than the stated returnPerPage count - entirely functional otherwise
 
+# add exchange rate at the time of data collection
+# Zilyo API returns listings in USD base. We want both local and USD.
+# available exchange rates through the Currency Exchange Mashape API:
+#  'USD' 'CAD' 'EUR' 'SGD' 'MYR' 'AUD' 'JPY' 'CNH' 'HKD' 'INR' 'DKK' 'GBP' 'RUB' 'NZD' 'MXN'
+baseCurrency <- 'USD' 
+localCurrency <- #'enter a local currency from above list'
+exchangeRateQuery <- paste0("https://currency-exchange.p.mashape.com/exchange?from=",baseCurrency,"&q=1.0&to=",localCurrency)
+exchangeRates <- GET(exchangeRateQuery, add_headers("X-Mashape-Key" = key, "Accept" = "text/plain"))
+exchange <- as.numeric(content(exchangeRates, type = 'text/plain'))
+exchangeDesc <- paste0(baseCurrency,"to",localCurrency,"_",Sys.Date())
+data$exchange <- exchange
+data$exchangeDesc <- exchangeDesc
+
 # Save results in a dated file
 date <- Sys.Date()
 provider <- provs
