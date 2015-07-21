@@ -72,10 +72,10 @@ getPage <- function(x) {
     df$heading[[i]] <- zilyo$result[[i]]$attr$heading
     df$desc[[i]] <- zilyo$result[[i]]$attr$description
     # reviews
-    df$reviewCount[[i]] <- zilyo$result[[1]]$reviews$count
-    df$reviewScore[[i]] <- zilyo$result[[1]]$reviews$rating
+    df$reviewCount[[i]] <- zilyo$result[[i]]$reviews$count
+    df$reviewScore[[i]] <- zilyo$result[[i]]$reviews$rating
     # url
-    df$url[[1]] <- zilyo$result[[1]]$provider$url
+    df$url[[i]] <- zilyo$result[[i]]$provider$url
   } 
   return(df)
 }
