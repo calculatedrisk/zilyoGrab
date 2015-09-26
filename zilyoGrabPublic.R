@@ -1,3 +1,5 @@
+install.packages("httr")
+
 # required packages
 require(httr)
 
